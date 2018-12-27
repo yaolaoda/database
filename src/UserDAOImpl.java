@@ -1,20 +1,35 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 public class UserDAOImpl extends DAOBase implements UserDAO{
 
 	@Override
-	public void searchUser(User user) throws SQLException{
+	public User searchUser(User user) throws SQLException{
 		Connection connection=null;
 		PreparedStatement pStatement=null;
-		String sql="select * from User where (username=? or telephone=? or email=?) and password=?";
+		ResultSet rs=null;
+		User user2=null;
+		String sql="select * from [User] where (username=? or telephone=? or email=?) and password=?";
 		try{
 			connection=getConnection();
 			pStatement=connection.prepareStatement(sql);
 			pStatement.setString(1, user.getInput());
-			pStatement.setString(2, user.getPassword());
+			pStatement.setString(2, user.getInput());
+			pStatement.setString(3, user.getInput());
+			pStatement.setString(4, user.getPassword());
+			rs=pStatement.executeQuery();
+			if(rs.next()){
+				user2=new User();
+				user2.setUserId(rs.getInt("userId"));
+				user2.setUsername(rs.getString("username"));
+				user2.setEmail(rs.getString("email"));
+				user2.setTelephone(rs.getString("telephone"));
+			}
+			rs.close();
+			pStatement.close();
 		}catch(SQLException ex){
 			
 		}finally{
@@ -24,25 +39,6 @@ public class UserDAOImpl extends DAOBase implements UserDAO{
 				
 			}
 		}
-		
+		return user2;
 	}
-
-	/*public void search(User user) throws SQLException {
-		Connection connection=null;
-		PreparedStatement pStatement=null;
-		String sql="select * from UserInfo where userId=?";
-		try{
-			connection=getConnection();
-			pStatement=connection.prepareStatement(sql);
-			pStatement.setLong(1, user.getUserId());
-		}catch(SQLException ex){
-			
-		}finally{
-			try{
-				connection.close();
-			}catch(SQLException ex){
-				
-			}
-		}		
-	}*/
 }
