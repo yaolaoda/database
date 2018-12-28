@@ -3,6 +3,7 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable{
 
+	private int userinfoId;
 	private int userId;
 	private String nickname;
 	private String photo;
@@ -44,6 +45,12 @@ public class UserInfo implements Serializable{
 	}
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+	public int getUserinfoId() {
+		return userinfoId;
+	}
+	public void setUserinfoId(int userinfoId) {
+		this.userinfoId = userinfoId;
 	}
 	
 }
