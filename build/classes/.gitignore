@@ -9,3 +9,8 @@
 /UserInfoDAOImpl.class
 /db.properties
 /ActingStaff.class
+/ActingStaffDAO.class
+/ActingStaffDAOImpl.class
+/ShortComment.class
+/ShortCommentDAO.class
+/ShortCommentDAOImpl.class
