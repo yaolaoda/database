@@ -72,21 +72,7 @@ public class MovieDAOImpl extends DAOBase implements MovieDAO {
 				System.out.println("fourstar:"+rs.getInt("fourStar"));
 				System.out.println("fiveStar:"+rs.getInt("fiveStar"));
 			}
-			sql="select ActingStaff.chineseName,MovieStaff.status,ActingStaff.staffid from Movie,MovieStaff,ActingStaff where Movie.movieid=MovieStaff.movieid and ActingStaff.staffid=MovieStaff.staffid and Movie.movieid=?";			
-			ps=conn.prepareStatement(sql);		
-			ps.setLong(1, movieId);
-			rs=ps.executeQuery();
-			int i=5;
-			System.out.println();
-			System.out.println("演职员：");
-			while(rs.next()&&(i>0)){
-				System.out.print('\t');
-				System.out.println("staffid:"+rs.getString("staffid"));
-				System.out.print('\t');
-				System.out.println(rs.getString("status")+":"+rs.getString("chineseName"));	
-				i--;
-			}
-			System.out.print('\t');System.out.println("更多演职员......");
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
