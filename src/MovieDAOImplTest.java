@@ -12,13 +12,12 @@ public class MovieDAOImplTest {
 
 	@Test
 	public void testSearchMovie() {
-		//fail("Not yet implemented");
 		movieDAOImpl.searchMovie("֮");
 	}
 
 	@Test
 	public void testSelectMovie() {
-		fail("Not yet implemented");
+		movieDAOImpl.selectMovie(2);
 	}
 
 }
