@@ -38,6 +38,7 @@ public class ShortCommentDAOImpl extends DAOBase implements ShortCommentDAO {
 		// TODO Auto-generated method stub
 		Connection conn=null;
 		PreparedStatement ps=null;
+		ResultSet rs=null;
 		try{
 			conn=this.getConnection();
 			String sql="insert into ShortComment(nickname,time,content,score,usefulCount,movieId)"
@@ -51,6 +52,54 @@ public class ShortCommentDAOImpl extends DAOBase implements ShortCommentDAO {
 			ps.setInt(5, comment.getUsefulCount());
 			ps.setInt(6, comment.getMovieId());
 			ps.executeUpdate();
+			ps.close();
+			sql="select * from ShortComment where movieId = ?";
+			ps=conn.prepareStatement(sql);
+			ps.setInt(1, comment.getMovieId());
+			rs=ps.executeQuery();
+			float sum=0;
+			int count=0;
+			while(rs.next()){
+				count++;
+				sum=sum+rs.getInt("score");
+			}
+			sum=sum/count;
+			ps.close();
+			if(comment.getScore()==1){
+				sql="update Movie set oneStar = oneStar+1,score= ? where movieId= ?";
+				ps=conn.prepareStatement(sql);
+				ps.setFloat(1, sum);
+				ps.setInt(2, comment.getMovieId());
+				ps.executeUpdate();
+			}
+			else if(comment.getScore()==2){
+				sql="update Movie set twoStar = twoStar+1,score= ? where movieId= ?";
+				ps=conn.prepareStatement(sql);
+				ps.setFloat(1, sum);
+				ps.setInt(2, comment.getMovieId());
+				ps.executeUpdate();
+			}
+			else if(comment.getScore()==3){
+				sql="update Movie set threeStar = threeStar+1,score= ? where movieId= ?";
+				ps=conn.prepareStatement(sql);
+				ps.setFloat(1, sum);
+				ps.setInt(2, comment.getMovieId());
+				ps.executeUpdate();
+			}
+			else if(comment.getScore()==4){
+				sql="update Movie set fourStar = fourStar+1,score= ? where movieId= ?";
+				ps=conn.prepareStatement(sql);
+				ps.setFloat(1, sum);
+				ps.setInt(2, comment.getMovieId());
+				ps.executeUpdate();
+			}
+			else if(comment.getScore()==5){
+				sql="update Movie set fiveStar = fiveStar+1,score= ? where movieId= ?";
+				ps=conn.prepareStatement(sql);
+				ps.setFloat(1, sum);
+				ps.setInt(2, comment.getMovieId());
+				ps.executeUpdate();
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -58,6 +107,7 @@ public class ShortCommentDAOImpl extends DAOBase implements ShortCommentDAO {
 			try{
 				ps.close();
 				conn.close();
+				rs.close();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
