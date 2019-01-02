@@ -20,9 +20,9 @@ public class ShortCommentDAOImplTest {
 	@Test
 	public void testInsertShortComment() {
 		ShortComment comment=new ShortComment();
-		comment.setNickname("Hecate");
-		comment.setContent("目前亚洲商业片的最高水准 看完之后对国产电影充满了愤怒。");
-		comment.setMovieId(5);
+		comment.setNickname("Hetty");
+		comment.setContent("好看的哟");
+		comment.setMovieId(3);
 		comment.setScore(5);
 		Date date=new Date(System.currentTimeMillis());
 		comment.setTime(date);
